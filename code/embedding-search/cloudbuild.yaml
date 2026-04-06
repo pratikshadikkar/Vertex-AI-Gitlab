@@ -1,0 +1,35 @@
+steps:
+  # Build Job 1
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/validator-parser:latest'
+      - '-f'
+      - 'cloud-run/ingestion-validator-parser-run/Dockerfile'
+      - '.'
+  
+  # Build Job 2
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/chunker-embedder:latest'
+      - '-f'
+      - 'cloud-run/ingestion-chunker-embedder-run/Dockerfile'
+      - '.'
+  
+  # Build Job 3
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/index-upserter:latest'
+      - '-f'
+      - 'cloud-run/ingestion-index-upserter-run/Dockerfile'
+      - '.'
+
+images:
+  - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/validator-parser:latest'
+  - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/chunker-embedder:latest'
+  - 'us-central1-docker.pkg.dev/vertex-ai-search-agent-486817/embed-search-images/index-upserter:latest'

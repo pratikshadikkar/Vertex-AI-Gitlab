@@ -1,0 +1,38 @@
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| Role                                 | Purpose                                      | Why Required for Terraform                                  | Risk Level |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/run.developer                  | Create and update Cloud Run services         | Required to deploy and update Cloud Run services            | Medium     |
+|                                      |                                              | using Terraform                                             |            |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/iam.serviceAccountUser         | Attach service accounts to resources         | Allows Terraform to assign runtime service accounts         | Medium     |
+|                                      |                                              | to Cloud Run services                                       |            |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/aiplatform.admin               | Full management of Vertex AI resources       | Required to create Index, Index Endpoint, and deploy        | High       |
+|                                      |                                              | deployed indexes                                            |            |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/pubsub.editor                  | Manage Pub/Sub topics and subscriptions      | Required if Terraform creates topics and subscriptions      | Medium     |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/storage.admin                  | Full management of Cloud Storage buckets     | Required only if Terraform creates buckets                  | High       |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/monitoring.editor              | Manage monitoring alert policies             | Required to create and update alerting policies             | Medium     |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/iam.serviceAccountAdmin        | Create and manage service accounts           | Required because Terraform creates runtime service accounts | High       |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/resourcemanager.projectIamAdmin| Modify project-level IAM bindings            | Required to assign IAM roles using                          | VERY HIGH  |
+|                                      |                                              | google_project_iam_member                                   |            |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+| roles/artifactregistry.writer        | Push container images to Artifact Registry   | Required if CI pipeline builds and pushes images            | Medium     |
++--------------------------------------+----------------------------------------------+--------------------------------------------------------------+------------+
+|roles/serviceusage.serviceUsageConsumer| Allows the service account to use project-  | Mandatory for CI/CD deployments.                            | High       |
+|
+|                                      |  level APIs required by Terraform            |
+|                                      |  (cloudresourcemanager, service usage validation).
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+These roles provide broad administrative power and should be restricted to CI/CD only: 
+roles/resourcemanager.projectIamAdmin
+roles/iam.serviceAccountAdmin
+roles/aiplatform.admin
+roles/storage.admin 
+roles/serviceusage.serviceUsageConsumer

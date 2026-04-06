@@ -1,0 +1,4 @@
+google-cloud-aiplatform[reasoningengine,adk]>=1.55.0
+langchain-google-vertexai
+langchain-community
+langchain-classic
